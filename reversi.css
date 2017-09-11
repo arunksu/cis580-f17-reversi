@@ -3,3 +3,18 @@ Arun Paramanathan
 CIS 580 (Fall 2017)
 reversi.css
 */
+
+#game-board {
+  border: 2px solid darkgrey;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 672px;
+  height: 672px;
+}
+
+.square {
+  border: 2px solid darkgrey;
+  width: 80px;
+  height: 80px;
+}
