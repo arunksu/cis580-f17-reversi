@@ -38,9 +38,3 @@ reversi.css
 .piece-w {
   background-color: #e5e5e5;
 }
-
-.piece.highlight {
-  border: 8px solid red;
-  width: 44px;
-  height: 44px;
-}
