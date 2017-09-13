@@ -131,8 +131,22 @@ function handleMouseLeaveSquare()
 function handleClickSquare()
 {
   event.preventDefault();
+
+  // Get the clicked square.
+  var square = event.target;
+  if (event.target.classList[0] === 'temp-piece')
+  {
+    // If the click was registered on the temp piece,
+    // go to the parent to get the square.
+    square = event.target.parentElement;
+  }
+
+  // Remove all highlights and temp pieces.
+  clearHighlights();
+
   // Add actual piece.
-  // Remove temp pieces and highlight stuff.
+  
+
   // Flip pieces as needed.
   // Switch turn.
   // If no moves exist, count pieces on board.
@@ -141,10 +155,21 @@ function handleClickSquare()
 
 function clearHighlights()
 {
+  // Unhighlight all squares and remove mouse events.
   var highlighted = document.querySelectorAll('.highlight');
   highlighted.forEach(function(elem)
   {
     elem.classList.remove('highlight');
+    elem.onmouseenter = null;
+    elem.onmouseleave = null;
+    elem.onclick = null;
+  });
+
+  // Remove all temp pieces.
+  var tempPieces = document.querySelectorAll('.temp-piece');
+  tempPieces.forEach(function(elem)
+  {
+    elem.parentElement.removeChild(elem);
   });
 }
 
