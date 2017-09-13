@@ -155,9 +155,53 @@ function handleClickSquare()
   state.board[x][y] = state.turn;
 
   // Flip pieces as needed.
+  flipPieces(x, y, -1, -1);
+  flipPieces(x, y,  0, -1);
+  flipPieces(x, y,  1, -1);
+
+  flipPieces(x, y, -1,  0);
+  flipPieces(x, y,  1,  0);
+
+  flipPieces(x, y, -1,  1);
+  flipPieces(x, y,  0,  1);
+  flipPieces(x, y,  1,  1);
+
   // Switch turn.
   // If no moves exist, count pieces on board.
   // Winner is most pieces.
+}
+
+function flipPieces(x, y, xIncr, yIncr)
+{
+  var newX = parseInt(x) + parseInt(xIncr);
+  var newY = parseInt(y) + parseInt(yIncr);
+
+  // If we're not off the board...
+  if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
+  {
+    // If a piece exists.
+    while (state.board[newX][newY])
+    {
+      // And if the piece is the opposite color.
+      if (state.board[newX][newY] != state.turn)
+      {
+        // Flip piece.
+        var square = document.getElementById('square-' + newX + '-' + newY)
+        square.removeChild(square.childNodes[0]);
+
+        var piece = document.createElement('div');
+        piece.classList.add('piece');
+        piece.classList.add('piece-' + state.turn);
+        square.appendChild(piece);
+        state.board[newX][newY] = state.turn;
+
+        // Step over the piece in the given direction.
+        newX += parseInt(xIncr);
+        newY += parseInt(yIncr);
+      }
+      else { break; }
+    }
+  }
 }
 
 function clearHighlights()
