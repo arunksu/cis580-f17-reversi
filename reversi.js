@@ -2,6 +2,9 @@
 // CIS 580 (Fall 2017)
 // reversi.js
 
+// Lock so we can wait for user input.
+var unlocked = true;
+
 // Global variables.
 var b = 'b';
 var w = 'w';
@@ -93,8 +96,11 @@ function checkLine(startPos, xIncr, yIncr, moves)
   // there is another player's piece between points.
   if (otherPlayersPieceFound && newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
   {
-    // Add this x,y as a possible move.
-    moves.push({x: newX, y: newY});
+    // If square is empty, add as possible move.
+    if (!state.board[newX][newY])
+    {
+      moves.push({ x:newX, y:newY });
+    }
   }
 }
 
@@ -171,6 +177,7 @@ function handleClickSquare()
   else { state.turn = b; }
 
   // If no moves exist, count pieces on board.
+  runGame();
   // Winner is most pieces.
 }
 
@@ -227,7 +234,7 @@ function clearHighlights()
   });
 }
 
-function main()
+function setupBoard()
 {
   // Create game board.
   var board = document.createElement('section');
@@ -255,9 +262,18 @@ function main()
       }
     }
   }
+}
 
+function runGame()
+{
   var possibleMoves = getPossibleMoves();
   highlightMoveLocations(possibleMoves);
+}
+
+function main()
+{
+  setupBoard();
+  runGame();
 }
 
 // Let us start the game.
