@@ -167,6 +167,9 @@ function handleClickSquare()
   flipPieces(x, y,  1,  1);
 
   // Switch turn.
+  if (state.turn === b) { state.turn = w; }
+  else { state.turn = b; }
+
   // If no moves exist, count pieces on board.
   // Winner is most pieces.
 }
@@ -224,7 +227,7 @@ function clearHighlights()
   });
 }
 
-function setup()
+function main()
 {
   // Create game board.
   var board = document.createElement('section');
@@ -258,4 +261,4 @@ function setup()
 }
 
 // Let us start the game.
-setup();
+main();
