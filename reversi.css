@@ -38,3 +38,11 @@ reversi.css
 .piece-w {
   background-color: #e5e5e5;
 }
+
+.temp-piece {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 50%;
+  box-shadow: 4px 4px 4px darkgrey;
+}

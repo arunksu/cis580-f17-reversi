@@ -106,7 +106,25 @@ function highlightMoveLocations(moves)
     var y = moves[i].y;
     var square = document.getElementById('square-' + x + '-' + y);
     square.classList.add('highlight');
+    square.onmouseenter = handleMouseOverSquare;
+    square.onmouseleave = handleMouseLeaveSquare;
   }
+}
+
+function handleMouseOverSquare()
+{
+  event.preventDefault();
+  var tempPiece = document.createElement('div');
+  tempPiece.classList.add('temp-piece');
+  tempPiece.classList.add('piece-' + state.turn);
+  event.target.appendChild(tempPiece);
+}
+
+function handleMouseLeaveSquare()
+{
+  event.preventDefault();
+  var tempPiece = document.querySelectorAll('.temp-piece');
+  event.target.removeChild(tempPiece[0]);
 }
 
 function clearHighlights()
