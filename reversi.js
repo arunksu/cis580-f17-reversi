@@ -145,7 +145,14 @@ function handleClickSquare()
   clearHighlights();
 
   // Add actual piece.
-  
+  var x = square.id.charAt(7);
+  var y = square.id.charAt(9);
+
+  var piece = document.createElement('div');
+  piece.classList.add('piece');
+  piece.classList.add('piece-' + state.turn);
+  square.appendChild(piece);
+  state.board[x][y] = state.turn;
 
   // Flip pieces as needed.
   // Switch turn.
