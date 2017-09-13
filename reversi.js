@@ -44,8 +44,33 @@ function getPossibleMoves()
     startPositions.push({x: x, y: y});
   }
 
+  for (j = 0; j < startPositions.length; j++)
+  {
+    checkLine(startPositions[j], -1, -1, moves);
+    checkLine(startPositions[j],  0, -1, moves);
+    checkLine(startPositions[j],  1, -1, moves);
+
+    checkLine(startPositions[j], -1,  0, moves);
+    checkLine(startPositions[j],  1,  0, moves);
+
+    checkLine(startPositions[j], -1,  1, moves);
+    checkLine(startPositions[j],  0,  1, moves);
+    checkLine(startPositions[j],  1,  1, moves);
+  }
+
   // Return all squares we can place piece on.
   return moves;
+}
+
+function checkLine(startPos, xIncr, yIncr, moves)
+{
+  var startX = startPos.x;
+  var startY = startPos.y;
+
+  var newX = parseInt(startX) + parseInt(xIncr);
+  var newY = parseInt(startY) + parseInt(yIncr);
+
+  console.log(newX, newY);
 }
 
 function clearHighlights()
@@ -65,9 +90,9 @@ function setup()
   document.body.appendChild(board);
 
   // Add square info.
-  for(var y = 0; y < state.board.length; y++)
+  for(var x = 0; x < state.board.length; x++)
   {
-    for(var x = 0; x < state.board[y].length; x++)
+    for(var y = 0; y < state.board[x].length; y++)
     {
       var square = document.createElement('div');
       square.id = "square-" + x + "-" + y;
@@ -75,12 +100,12 @@ function setup()
       board.appendChild(square);
 
       // Add pieces on squares that have them.
-      if(state.board[y][x])
+      if(state.board[x][y])
       {
         var piece = document.createElement('div');
         piece.classList.add('piece');
         // piece-w or piece-b class to signify color.
-        piece.classList.add('piece-' + state.board[y][x]);
+        piece.classList.add('piece-' + state.board[x][y]);
         square.appendChild(piece);
       }
     }
