@@ -123,8 +123,8 @@ function handleMouseOverSquare()
 function handleMouseLeaveSquare()
 {
   event.preventDefault();
-  var tempPiece = document.querySelectorAll('.temp-piece');
-  event.target.removeChild(tempPiece[0]);
+  var tempPieces = document.querySelectorAll('.temp-piece');
+  event.target.removeChild(tempPieces[0]);
 }
 
 function clearHighlights()
