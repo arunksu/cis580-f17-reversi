@@ -177,8 +177,10 @@ function handleClickSquare()
   else { state.turn = b; }
 
   // If no moves exist, count pieces on board.
-  runGame();
   // Winner is most pieces.
+
+  // If moves still exist, continue game.
+  runGame();
 }
 
 function flipPieces(x, y, xIncr, yIncr)
@@ -233,7 +235,6 @@ function flipPieces(x, y, xIncr, yIncr)
       }
     }
   }
-
 }
 
 function clearHighlights()
