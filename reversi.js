@@ -64,13 +64,38 @@ function getPossibleMoves()
 
 function checkLine(startPos, xIncr, yIncr, moves)
 {
+  var otherPlayersPieceFound = false;
+
   var startX = startPos.x;
   var startY = startPos.y;
 
   var newX = parseInt(startX) + parseInt(xIncr);
   var newY = parseInt(startY) + parseInt(yIncr);
 
-  console.log(newX, newY);
+  // If we're not off the board...
+  if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
+  {
+    // If a piece exists.
+    while (state.board[newX][newY])
+    {
+      // And if the piece is the opposite color.
+      if (state.board[newX][newY] != state.turn)
+      {
+        // Step over the piece.
+        newX += parseInt(xIncr);
+        newY += parseInt(yIncr);
+        otherPlayersPieceFound = true;
+      }
+      else { break; }
+    }
+  }
+  // If our end spot is still on the board and
+  // there is another player's piece between points.
+  if (otherPlayersPieceFound && newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
+  {
+    // Add this x,y as a possible move.
+    moves.push({x: newX, y: newY});
+  }
 }
 
 function clearHighlights()
@@ -111,7 +136,7 @@ function setup()
     }
   }
   // Let us start the game.
-  getPossibleMoves();
+  console.log(getPossibleMoves());
 }
 
 setup();
