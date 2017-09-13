@@ -183,6 +183,7 @@ function handleClickSquare()
 
 function flipPieces(x, y, xIncr, yIncr)
 {
+  var squaresToFlip = [];
   var newX = parseInt(x) + parseInt(xIncr);
   var newY = parseInt(y) + parseInt(yIncr);
 
@@ -195,15 +196,12 @@ function flipPieces(x, y, xIncr, yIncr)
       // And if the piece is the opposite color.
       if (state.board[newX][newY] != state.turn)
       {
-        // Flip piece.
+        // Add squres with opposite colored pieces as we find them.
+        // We can't flip them yet becasue we need to
+        // see if this path ends with a piece of the same
+        // color as the current turn.
         var square = document.getElementById('square-' + newX + '-' + newY)
-        square.removeChild(square.childNodes[0]);
-
-        var piece = document.createElement('div');
-        piece.classList.add('piece');
-        piece.classList.add('piece-' + state.turn);
-        square.appendChild(piece);
-        state.board[newX][newY] = state.turn;
+        squaresToFlip.push(square);
 
         // Step over the piece in the given direction.
         newX += parseInt(xIncr);
@@ -212,6 +210,30 @@ function flipPieces(x, y, xIncr, yIncr)
       else { break; }
     }
   }
+  // If we're still on the board
+  if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
+  {
+    // If we ended the path with one of our pieces.
+    if (state.board[newX][newY] === state.turn)
+    {
+      for (i = 0; i < squaresToFlip.length; i++)
+      {
+        // Remove old piece from square.
+        var currentSquare = squaresToFlip[i];
+        currentSquare.removeChild(currentSquare.childNodes[0]);
+        var currentX = square.id.charAt(7);
+        var currentY = square.id.charAt(9);
+
+        // Add new piece.
+        var piece = document.createElement('div');
+        piece.classList.add('piece');
+        piece.classList.add('piece-' + state.turn);
+        currentSquare.appendChild(piece);
+        state.board[currentX][currentY] = state.turn;
+      }
+    }
+  }
+
 }
 
 function clearHighlights()
