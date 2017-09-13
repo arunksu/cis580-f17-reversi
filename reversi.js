@@ -81,7 +81,7 @@ function checkLine(startPos, xIncr, yIncr, moves)
       // And if the piece is the opposite color.
       if (state.board[newX][newY] != state.turn)
       {
-        // Step over the piece.
+        // Step over the piece in the given direction.
         newX += parseInt(xIncr);
         newY += parseInt(yIncr);
         otherPlayersPieceFound = true;
@@ -95,6 +95,17 @@ function checkLine(startPos, xIncr, yIncr, moves)
   {
     // Add this x,y as a possible move.
     moves.push({x: newX, y: newY});
+  }
+}
+
+function highlightMoveLocations(moves)
+{
+  for (i = 0; i < moves.length; i++)
+  {
+    var x = moves[i].x;
+    var y = moves[i].y;
+    var square = document.getElementById('square-' + x + '-' + y);
+    square.classList.add('highlight');
   }
 }
 
@@ -135,8 +146,10 @@ function setup()
       }
     }
   }
-  // Let us start the game.
-  console.log(getPossibleMoves());
+
+  var possibleMoves = getPossibleMoves();
+  highlightMoveLocations(possibleMoves);
 }
 
+// Let us start the game.
 setup();
