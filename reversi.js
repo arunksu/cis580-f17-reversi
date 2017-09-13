@@ -108,6 +108,7 @@ function highlightMoveLocations(moves)
     square.classList.add('highlight');
     square.onmouseenter = handleMouseOverSquare;
     square.onmouseleave = handleMouseLeaveSquare;
+    square.onclick = handleClickSquare;
   }
 }
 
@@ -125,6 +126,17 @@ function handleMouseLeaveSquare()
   event.preventDefault();
   var tempPieces = document.querySelectorAll('.temp-piece');
   event.target.removeChild(tempPieces[0]);
+}
+
+function handleClickSquare()
+{
+  event.preventDefault();
+  // Add actual piece.
+  // Remove temp pieces and highlight stuff.
+  // Flip pieces as needed.
+  // Switch turn.
+  // If no moves exist, count pieces on board.
+  // Winner is most pieces.
 }
 
 function clearHighlights()
