@@ -230,8 +230,8 @@ function flipPieces(x, y, xIncr, yIncr)
         // Remove old piece from square.
         var currentSquare = squaresToFlip[i];
         currentSquare.removeChild(currentSquare.childNodes[0]);
-        var currentX = square.id.charAt(7);
-        var currentY = square.id.charAt(9);
+        var currentX = currentSquare.id.charAt(7);
+        var currentY = currentSquare.id.charAt(9);
 
         // Add new piece.
         var piece = document.createElement('div');
