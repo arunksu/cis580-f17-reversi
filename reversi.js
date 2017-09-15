@@ -12,7 +12,6 @@ var w = 'w';
 // All info about game state.
 var state =
 {
-  gameOver: false,
   turn: b,
   board: [
     [null, null, null, null, null, null, null, null],
@@ -180,10 +179,6 @@ function handleClickSquare()
   if (state.turn === b) { state.turn = w; }
   else { state.turn = b; }
 
-  // If no moves exist, count pieces on board.
-  // Winner is most pieces.
-
-  // If moves still exist, continue game.
   runGame();
 }
 
@@ -297,7 +292,23 @@ function setupBoard()
 function runGame()
 {
   var possibleMoves = getPossibleMoves();
-  highlightMoveLocations(possibleMoves);
+
+  if (possibleMoves.length > 0) { highlightMoveLocations(possibleMoves); }
+  else { decideWinner(); }
+}
+
+function decideWinner()
+{
+  var blackPieces = document.querySelectorAll('.piece-b');
+  var whitePieces = document.querySelectorAll('.piece-w');
+
+  var message = '';
+
+  if (blackPieces.length === whitePieces.length) { message = 'Draw!'; }
+  else if (blackPieces.length > whitePieces.length) { message = 'Black pieces win!'; }
+  else if (whitePieces.length > blackPieces.length) { message = 'White pieces win!'; }
+
+  alert(message + ' Refresh the page to restart game.');
 }
 
 function main()
