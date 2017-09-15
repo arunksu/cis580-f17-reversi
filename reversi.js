@@ -78,6 +78,7 @@ function checkLine(startPos, xIncr, yIncr, moves)
   // If we're not off the board...
   if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7)
   {
+    console.log(state.board[newX][newY]);
     // If a piece exists.
     while (state.board[newX][newY])
     {
@@ -88,6 +89,9 @@ function checkLine(startPos, xIncr, yIncr, moves)
         newX += parseInt(xIncr);
         newY += parseInt(yIncr);
         otherPlayersPieceFound = true;
+
+        // If we're off the board, stop looping.
+        if (newX < 0 || newX > 7 || newY < 0 || newY > 7) { break; }
       }
       else { break; }
     }
@@ -208,6 +212,9 @@ function flipPieces(x, y, xIncr, yIncr)
         // Step over the piece in the given direction.
         newX += parseInt(xIncr);
         newY += parseInt(yIncr);
+
+        // If we're off the board, stop looping.
+        if (newX < 0 || newX > 7 || newY < 0 || newY > 7) { break; }
       }
       else { break; }
     }
