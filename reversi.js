@@ -25,6 +25,10 @@ var state =
   ]
 }
 
+/** @function getPossibleMoves
+  * Returns list of squares a piece can be placed on.
+  * @returns {Array} moves: Possible squares to place piece on as {x,y} values.
+  */
 function getPossibleMoves()
 {
   var moves = [];
@@ -64,6 +68,15 @@ function getPossibleMoves()
   return moves;
 }
 
+/** @function checkLine
+  * Starts at a piece and checks a path in a given direction to see
+  * if we can place a new piece at the end of the path. The direction to
+  * draw the path is indicated by xIncr and yIncr.
+  * @param {Object} startPos: {x,y} coordinate to start drawing a path from.
+  * @param {integer} xIncr: How we should increment x as we draw a path.
+  * @param {integer} yIncr: How we should increment y as we draw a path.
+  * @param {Array} moves: The list we want to append possible squares to.
+  */
 function checkLine(startPos, xIncr, yIncr, moves)
 {
   var otherPlayersPieceFound = false;
@@ -107,6 +120,12 @@ function checkLine(startPos, xIncr, yIncr, moves)
   }
 }
 
+/** @function highlightMoveLocations
+  * Highlights all squares where the player can place a piece.
+  * Also add mouse events and click events to show a piece of the
+  * current color when the players hovers over a potential move location.
+  * @param {Array} moves: The list of all squares we place a piece on.
+  */
 function highlightMoveLocations(moves)
 {
   for (i = 0; i < moves.length; i++)
@@ -121,6 +140,11 @@ function highlightMoveLocations(moves)
   }
 }
 
+/** @function handleMouseOverSquare
+  * Add a temporary piece of the current color to a
+  * highlighted square if the user hovers mouse over it.
+  * This is how we indicate which player's turn it is.
+  */
 function handleMouseOverSquare()
 {
   event.preventDefault();
@@ -130,6 +154,10 @@ function handleMouseOverSquare()
   event.target.appendChild(tempPiece);
 }
 
+/** @function handleMouseLeaveSquare
+  * When the mouse moves away from a highlighted square,
+  * remove the temporary piece.
+  */
 function handleMouseLeaveSquare()
 {
   event.preventDefault();
@@ -137,6 +165,12 @@ function handleMouseLeaveSquare()
   event.target.removeChild(tempPieces[0]);
 }
 
+/** @function handleClickSquare
+  * When a highlighted square is clicked, clear all other
+  * highlighted squares, remove the temp piece, add a real piece,
+  * flip pieces as needed, and switch the turn.
+  * Finally, we call runGame() again to continue to the next turn.
+  */
 function handleClickSquare()
 {
   event.preventDefault();
@@ -182,6 +216,15 @@ function handleClickSquare()
   runGame();
 }
 
+/** @function flipPieces
+  * Starts at a piece and checks a path in a given direction to see
+  * if we can flip pieces on the path. We also update state.board
+  * so that it reflects what the UI shows.
+  * @param {integer} x: x coordinate of starting square.
+  * @param {integer} y: y coordinate of starting square.
+  * @param {integer} xIncr: How we should increment x as we draw a path.
+  * @param {integer} yIncr: How we should increment y as we draw a path.
+  */
 function flipPieces(x, y, xIncr, yIncr)
 {
   var squaresToFlip = [];
@@ -239,6 +282,12 @@ function flipPieces(x, y, xIncr, yIncr)
   }
 }
 
+/** @function clearHighlights
+  * Clear all highlighted squares and remove mouse
+  * events. Squares return to normal color and
+  * any temporary pieces used to indicate a possible move
+  * are removed.
+  */
 function clearHighlights()
 {
   // Unhighlight all squares and remove mouse events.
@@ -259,6 +308,10 @@ function clearHighlights()
   });
 }
 
+/** @function setupBoard
+  * Create the UI. Setup an 8x8 grid, add ids to each square,
+  * add ids to the pieces on the board, and display everything.
+  */
 function setupBoard()
 {
   // Create game board.
@@ -289,6 +342,12 @@ function setupBoard()
   }
 }
 
+/** @function runGame
+  * Start by getting the list of all squares we can place a piece on.
+  * If there are possible moves, we highlight squares and wait for
+  * a click event to occur. If no possible moves exist, we end the game
+  * by deciding which piece wins.
+  */
 function runGame()
 {
   var possibleMoves = getPossibleMoves();
@@ -297,6 +356,11 @@ function runGame()
   else { decideWinner(); }
 }
 
+/** @function decideWinner
+  * Count the pieces of each color. The larger amount wins.
+  * If there is a tie we call the game a draw. Display this information
+  * via an alert().
+  */
 function decideWinner()
 {
   var blackPieces = document.querySelectorAll('.piece-b');
@@ -311,6 +375,10 @@ function decideWinner()
   alert(message + ' Refresh the page to restart game.');
 }
 
+/** @function main
+  * Handle the initialization by calling any
+  * methods we need before we're ready for user input.
+  */
 function main()
 {
   setupBoard();
