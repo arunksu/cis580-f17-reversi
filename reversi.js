@@ -372,7 +372,10 @@ function decideWinner()
   else if (blackPieces.length > whitePieces.length) { message = 'Black pieces win!'; }
   else if (whitePieces.length > blackPieces.length) { message = 'White pieces win!'; }
 
-  alert(message + ' Refresh the page to restart game.');
+  var winnerAlert = document.createElement('div');
+  winnerAlert.classList.add('alert-winner');
+  winnerAlert.innerHTML += message + ' Refresh page for new game.'
+  document.body.appendChild(winnerAlert);
 }
 
 /** @function main

@@ -46,3 +46,15 @@ reversi.css
   border-radius: 50%;
   box-shadow: 4px 4px 4px darkgrey;
 }
+
+.alert-winner {
+  position: absolute;
+  top: 41.25%;
+  padding: 28px;
+  width: 620px;
+  background-color: #0fd881;
+  color: white;
+  text-align: center;
+  font-family: Arial;
+  font-size: 28px;
+}
